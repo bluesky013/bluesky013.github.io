@@ -1,4 +1,4 @@
-baseurl = "https://Zachlee.github.io"
+baseurl = "https://bluesky013.github.io"
 title = "Zach的博客"
 languageCode = "en-us"
 paginate = "10" # Number of posts per page
