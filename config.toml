@@ -22,7 +22,7 @@ publishDir = "docs"
   mainSections = ["post", "docs"]
 
 [Params.logo]
-  subtitle = "Just another site" # Logo subtitle
+  subtitle = "Hakuna Matata"
 
 [Params.sidebar]
   home = "right"   # Configure layout for home page

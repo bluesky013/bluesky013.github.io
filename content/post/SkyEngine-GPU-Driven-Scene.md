@@ -1,13 +1,13 @@
 ---
-title: SkyEngine
+title: Gpu Driven Scene
 date: 2022-06-28
 authorbox: false
 categories:
   - "Blog"
 tags:
   - "Real Time Rendering"
-menu:
-  main:
-    name: Blog
-    weight: 4
+  - "SkyEngine"
+  - "GPU Driven"
 ---
+
+## GPU Driven
