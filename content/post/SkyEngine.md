@@ -38,6 +38,10 @@ SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验�
   - [ ] 序列号\反序列化
   - [ ] AssetManager
   - [x] JobSystem
+  - [x] Script
+    - [x] Lua
+    - [ ] JavaScript
+    - 
   - [x] Launcher \ Application \ NativeWindow
     - [x] Windows
     - [x] MacOS
