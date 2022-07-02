@@ -2,30 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Zachlee.github.io/about/</loc>
+    <loc>https://www.bluesky013.cn/about/</loc>
     <lastmod>2022-06-28T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/categories/blog/</loc>
+    <loc>https://www.bluesky013.cn/categories/blog/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/categories/</loc>
+    <loc>https://www.bluesky013.cn/categories/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/post/</loc>
+    <loc>https://www.bluesky013.cn/tags/framegraph/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/tags/real-time-rendering/</loc>
+    <loc>https://www.bluesky013.cn/post/skyengine-framegraph/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/post/basic-elements/</loc>
+    <loc>https://www.bluesky013.cn/tags/gpu-driven/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/tags/</loc>
+    <loc>https://www.bluesky013.cn/post/skyengine-gpu-driven-scene/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/</loc>
+    <loc>https://www.bluesky013.cn/post/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://Zachlee.github.io/docs/</loc>
+    <loc>https://www.bluesky013.cn/tags/real-time-rendering/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/skyengine/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/post/skyengine/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/</loc>
+    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/docs/</loc>
   </url>
 </urlset>

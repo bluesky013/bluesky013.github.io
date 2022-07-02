@@ -2,27 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zach的博客</title>
-    <link>https://Zachlee.github.io/</link>
+    <link>https://www.bluesky013.cn/</link>
     <description>Recent content on Zach的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://Zachlee.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.bluesky013.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://Zachlee.github.io/about/</link>
+      <link>https://www.bluesky013.cn/about/</link>
       <pubDate>Tue, 28 Jun 2022 14:00:00 +0000</pubDate>
       
-      <guid>https://Zachlee.github.io/about/</guid>
+      <guid>https://www.bluesky013.cn/about/</guid>
       <description>经历 东南大学 仪器科学与工程学院 本科\硕士 2009-2016 华为 图形工程师 2016-2022 技能 Graphics Vulkan/Metal/OpenGL 个人信息 邮箱: bluesky013@126.com Github: bluesky013 </description>
     </item>
     
     <item>
-      <title>SkyEngine</title>
-      <link>https://Zachlee.github.io/post/basic-elements/</link>
+      <title>FrameGraph</title>
+      <link>https://www.bluesky013.cn/post/skyengine-framegraph/</link>
       <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://Zachlee.github.io/post/basic-elements/</guid>
-      <description></description>
+      <guid>https://www.bluesky013.cn/post/skyengine-framegraph/</guid>
+      <description>FrameGraph </description>
+    </item>
+    
+    <item>
+      <title>Gpu Driven Scene</title>
+      <link>https://www.bluesky013.cn/post/skyengine-gpu-driven-scene/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bluesky013.cn/post/skyengine-gpu-driven-scene/</guid>
+      <description>GPU Driven </description>
+    </item>
+    
+    <item>
+      <title>SkyEngine 介绍</title>
+      <link>https://www.bluesky013.cn/post/skyengine/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bluesky013.cn/post/skyengine/</guid>
+      <description>SkyEngine 初衷 SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验证等目的。本系列也是主要介绍引擎开发过程中的一部分思路和想法。
+主要思路：
+逻辑层采用 ECS + JobSystem 设计思路 渲染器采用 FrameGraph + 组件化的整体思路。 关于Editorgit 引用 QT5 的 Native Editor，逐步开发中。
+关于后端 引擎采用单 vulkan 后端的设计，主要考虑以下几个原因：
+Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好的兼容性。 避免 RHI 设计时对某一个 API 妥协。 【懒】。 功能 framework 反射 序列号\反序列化 AssetManager JobSystem Script Lua JavaScript Launcher \ Application \ NativeWindow Windows MacOS engine Dynamic Modules World \ Level ECS render FrameGraph 基础渲染 driver vulkan Windows MacOS Tools Editor AssetBuilder FBX / GLTF / &amp;hellip; Shader 三方库 assimp glm crc32c rapidjson taskflow stb-image imgui SFMT SPIRV_Cross SPIRV_Headers SPIRV_Tools glslang shaderc </description>
     </item>
     
   </channel>
