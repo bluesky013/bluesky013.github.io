@@ -21,7 +21,7 @@ SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验�
 * 逻辑层采用 ECS + JobSystem 设计思路
 * 渲染器采用 FrameGraph + 组件化的整体思路。
 
-## 关于Editor
+## 关于Editorgit
 引用 QT5 的 Native Editor，逐步开发中。
 
 ## 关于后端
