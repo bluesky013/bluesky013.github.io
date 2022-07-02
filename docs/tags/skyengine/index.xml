@@ -6,7 +6,20 @@
     <description>Recent content in SkyEngine on Zach的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.bluesky013.cn/tags/skyengine/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.bluesky013.cn/tags/skyengine/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Framework-Event</title>
+      <link>https://www.bluesky013.cn/post/skyengine-framework-event/</link>
+      <pubDate>Sat, 02 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bluesky013.cn/post/skyengine-framework-event/</guid>
+      <description>Event 引擎存在大量的监听事件，典型的比如：
+系统Tick事件、初始化、销毁等事件 窗口事件 为此可能存在大量分散的 Listener 处理、维护，因此设计了一个统一的 Event 系统来统一处理。
+基础功能包括：
+Event 对象通过模板 + Interface 方式确定一个单例对象 Event 支持 Listener 针对某一个类型 Key 进行过滤 Event 支持对 Listener 进行广播 使用形式
+// Interface class EventInterface : public EventTraits { virtual void OnEvent0(float v) = 0; virtual void OnEvent1() = 0; }; // Listener class Object : public EventInterface { public: Object() { Event&amp;lt;EventInterface&amp;gt;::Connect(this); } ~Object() { Event&amp;lt;EventInterface&amp;gt;::DisConnect(this); } void OnEvent0(float v) { /* todo */ } void OnEvent1() { /* todo */ } }; // Dispatcher { // Event0 Event&amp;lt;ITestEvent1&amp;gt;::BroadCast(&amp;amp;EventInterface::OnEvent0, 1.</description>
+    </item>
+    
     <item>
       <title>FrameGraph</title>
       <link>https://www.bluesky013.cn/post/skyengine-framegraph/</link>
@@ -23,6 +36,15 @@
       
       <guid>https://www.bluesky013.cn/post/skyengine-gpu-driven-scene/</guid>
       <description>GPU Driven </description>
+    </item>
+    
+    <item>
+      <title>Render Mesh</title>
+      <link>https://www.bluesky013.cn/post/skyengine-mesh/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bluesky013.cn/post/skyengine-mesh/</guid>
+      <description>Mesh </description>
     </item>
     
     <item>

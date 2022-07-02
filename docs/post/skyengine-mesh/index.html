@@ -4,17 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SkyEngine 介绍 - Zach的博客</title>
+	<title>Render Mesh - Zach的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="SkyEngine 介绍" />
-<meta property="og:description" content="SkyEngine 初衷 SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验证等目的。本系列也是主要介绍引擎开发过程中的一部分思路和想法。
-主要思路：
-逻辑层采用 ECS &#43; JobSystem 设计思路 渲染器采用 FrameGraph &#43; 组件化的整体思路。 关于Editorgit 引用 QT5 的 Native Editor，逐步开发中。
-关于后端 引擎采用单 vulkan 后端的设计，主要考虑以下几个原因：
-Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好的兼容性。 避免 RHI 设计时对某一个 API 妥协。 【懒】。 功能 framework 反射 序列号\反序列化 AssetManager JobSystem Script Lua JavaScript Launcher \ Application \ NativeWindow Windows MacOS engine Dynamic Modules World \ Level ECS render FrameGraph 基础渲染 driver vulkan Windows MacOS Tools Editor AssetBuilder FBX / GLTF / &hellip; Shader 三方库 assimp glm crc32c rapidjson taskflow stb-image imgui SFMT SPIRV_Cross SPIRV_Headers SPIRV_Tools glslang shaderc " />
+		<meta property="og:title" content="Render Mesh" />
+<meta property="og:description" content="Mesh " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.bluesky013.cn/post/skyengine/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://www.bluesky013.cn/post/skyengine-mesh/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-06-28T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-06-28T00:00:00+00:00" />
 
@@ -49,7 +45,7 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 		<span class="menu__btn-title" tabindex="-1">Menu</span>
 	</button>
 	<ul class="menu__list">
-		<li class="menu__item menu__item--active">
+		<li class="menu__item">
 			<a class="menu__link" href="/post/skyengine/">
 				
 				<span class="menu__text">Blog</span>
@@ -74,7 +70,7 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">SkyEngine 介绍</h1>
+			<h1 class="post__title">Render Mesh</h1>
 			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-28T00:00:00Z">June 28, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
@@ -82,97 +78,7 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 </div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<h1 id="skyengine">SkyEngine</h1>
-<h2 id="初衷">初衷</h2>
-<p>SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验证等目的。本系列也是主要介绍引擎开发过程中的一部分思路和想法。<br>
-主要思路：</p>
-<ul>
-<li>逻辑层采用 ECS + JobSystem 设计思路</li>
-<li>渲染器采用 FrameGraph + 组件化的整体思路。</li>
-</ul>
-<h2 id="关于editorgit">关于Editorgit</h2>
-<p>引用 QT5 的 Native Editor，逐步开发中。</p>
-<h2 id="关于后端">关于后端</h2>
-<p>引擎采用单 vulkan 后端的设计，主要考虑以下几个原因：</p>
-<ul>
-<li>Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好的兼容性。</li>
-<li>避免 RHI 设计时对某一个 API 妥协。</li>
-<li>【懒】。</li>
-</ul>
-<h2 id="功能">功能</h2>
-<ul>
-<li><input disabled="" type="checkbox"> framework
-<ul>
-<li><input checked="" disabled="" type="checkbox"> 反射</li>
-<li><input disabled="" type="checkbox"> 序列号\反序列化</li>
-<li><input disabled="" type="checkbox"> AssetManager</li>
-<li><input checked="" disabled="" type="checkbox"> JobSystem</li>
-<li><input checked="" disabled="" type="checkbox"> Script
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Lua</li>
-<li><input disabled="" type="checkbox"> JavaScript</li>
-<li></li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> Launcher \ Application \ NativeWindow
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Windows</li>
-<li><input checked="" disabled="" type="checkbox"> MacOS</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> engine
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Dynamic Modules</li>
-<li><input disabled="" type="checkbox"> World \ Level</li>
-<li><input disabled="" type="checkbox"> ECS</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> render
-<ul>
-<li><input checked="" disabled="" type="checkbox"> FrameGraph</li>
-<li><input disabled="" type="checkbox"> 基础渲染</li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> driver
-<ul>
-<li><input checked="" disabled="" type="checkbox"> vulkan
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Windows</li>
-<li><input checked="" disabled="" type="checkbox"> MacOS</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> Tools
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Editor</li>
-<li><input disabled="" type="checkbox"> AssetBuilder
-<ul>
-<li><input disabled="" type="checkbox"> FBX / GLTF / &hellip;</li>
-<li><input disabled="" type="checkbox"> Shader</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="三方库">三方库</h2>
-<ul>
-<li>assimp</li>
-<li>glm</li>
-<li>crc32c</li>
-<li>rapidjson</li>
-<li>taskflow</li>
-<li>stb-image</li>
-<li>imgui</li>
-<li>SFMT</li>
-<li>SPIRV_Cross</li>
-<li>SPIRV_Headers</li>
-<li>SPIRV_Tools</li>
-<li>glslang</li>
-<li>shaderc</li>
-</ul>
+			<h2 id="mesh">Mesh</h2>
 
 		</div>
 		<footer class="post__footer">
@@ -186,6 +92,9 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 		<li class="tags__item">
 			<a class="tags__link btn" href="/tags/skyengine/" rel="tag">SkyEngine</a>
 		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mesh/" rel="tag">Mesh</a>
+		</li>
 	</ul>
 </div>
 		</footer>
@@ -194,10 +103,16 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 
 
 <nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/post/skyengine/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">SkyEngine 介绍</p>
+		</a>
+	</div>
 	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/post/skyengine-mesh/" rel="next">
+		<a class="pager__link" href="/post/skyengine-gpu-driven-scene/" rel="next">
 			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Render Mesh</p>
+			<p class="pager__title">Gpu Driven Scene</p>
 		</a>
 	</div>
 </nav>
