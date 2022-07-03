@@ -3,10 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.bluesky013.cn/categories/blog/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.bluesky013.cn/categories/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/framegraph/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/post/skyengine-framegraph01/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/post/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/real-time-rendering/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/skyengine/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/tags/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.bluesky013.cn/</loc>
+    <lastmod>2022-07-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.bluesky013.cn/tags/framework/</loc>
     <lastmod>2022-07-02T00:00:00+00:00</lastmod>
@@ -14,29 +35,8 @@
     <loc>https://www.bluesky013.cn/post/skyengine-framework-event/</loc>
     <lastmod>2022-07-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.bluesky013.cn/post/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/tags/real-time-rendering/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/tags/skyengine/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/tags/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/</loc>
-    <lastmod>2022-07-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://www.bluesky013.cn/about/</loc>
     <lastmod>2022-06-28T14:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/tags/framegraph/</loc>
-    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.bluesky013.cn/post/skyengine-framegraph/</loc>
-    <lastmod>2022-06-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.bluesky013.cn/tags/gpu-driven/</loc>
     <lastmod>2022-06-28T00:00:00+00:00</lastmod>

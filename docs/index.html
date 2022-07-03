@@ -72,6 +72,30 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/post/skyengine-framegraph01/" rel="bookmark">
+			FrameGraph(一)
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-03T00:00:00Z">July 03, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		FrameGraph 概念来来源于寒霜，个人理解本质一种面向数据编程模式，利用单帧全局信息进行资源和 Task(Pass) 的调度优化。
+主要解决问题：
+管线扩展性 资源自动配置管理 异步计算管线管理 其中扩展性需要以每帧构建的开销为代价。资源的配置管理分为两部分，一是内存的生命周期管理、内存复用，二是资源的动态 Barrier 处理。
+异步管线（个人理解还不太完善后续补充），后续分几篇介绍 SkyEngine FrameGraph。
+扩展性问题 SkyEngine的希望做成可定制化的专用引擎，因此希望做到模块化。对于引擎模块化来说，需要解决如何在各模块动态定制管线的问题。目前想法是依赖 project 的配置来实现，两种方法，一管线资产化，二管线脚本化，渲染核心无固定的管线结构。
+资源管理问题 现代游戏动辄300+ pass，在 GPU 资源有限的情况下必须要尽可能复用内存，存在两种做法
+对象池管理，复用 Image\Buffer 对象 优点：相对简单、兼容性好 缺点：格式、大小等限制 内存池管理，Image\Buffer 对象复用 Memory 优点：限制小、复用率高 缺点：依赖现代 API，相对复杂的内存管理 为实现内存池管理，依赖的如 Vulkan API 下 Buffer\Image 对象绑定 Memory 对象的操作，这边有一个假设前提，节约显存带来的收益大于额外的构建开销或者额外的构建开销可忽略不计。
+额外的构建开销包括 ImageView\FrameBuffer 的构建，受限于本人对驱动的了解，这部分可能要留作后续研究、试验确定，个人浅显的理解 View\FrameBuffer 仅为描述资源\容器，构建开销并不应该很大。
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/post/skyengine-framework-event/" rel="bookmark">
 			Framework-Event
 			</a>
@@ -88,23 +112,6 @@
 基础功能包括：
 Event 对象通过模板 + Interface 方式确定一个单例对象 Event 支持 Listener 针对某一个类型 Key 进行过滤 Event 支持对 Listener 进行广播 使用形式
 // Interface class EventInterface : public EventTraits { virtual void OnEvent0(float v) = 0; virtual void OnEvent1() = 0; }; // Listener class Object : public EventInterface { public: Object() { Event&lt;EventInterface&gt;::Connect(this); } ~Object() { Event&lt;EventInterface&gt;::DisConnect(this); } void OnEvent0(float v) { /* todo */ } void OnEvent1() { /* todo */ } }; // Dispatcher { // Event0 Event&lt;ITestEvent1&gt;::BroadCast(&amp;EventInterface::OnEvent0, 1.
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/post/skyengine-framegraph/" rel="bookmark">
-			FrameGraph
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-28T00:00:00Z">June 28, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		FrameGraph 
 	</div>
 </article><article class="list__item post">
 	
@@ -179,8 +186,8 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framegraph01/">FrameGraph(一)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framework-event/">Framework-Event</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framegraph/">FrameGraph</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-gpu-driven-scene/">Gpu Driven Scene</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-mesh/">Render Mesh</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine/">SkyEngine 介绍</a></li>
