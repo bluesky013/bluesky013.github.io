@@ -23,5 +23,18 @@
 额外的构建开销包括 ImageView\FrameBuffer 的构建，受限于本人对驱动的了解，这部分可能要留作后续研究、试验确定，个人浅显的理解 View\FrameBuffer 仅为描述资源\容器，构建开销并不应该很大。</description>
     </item>
     
+    <item>
+      <title>FrameGraph(二)</title>
+      <link>https://www.bluesky013.cn/post/skyengine-framegraph02/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.bluesky013.cn/post/skyengine-framegraph02/</guid>
+      <description>FrameGraph Setup FrameGraph 分为数据和Task两部分，数据部分包括资源(Image/Buffer)和配置，Task 包括GraphicPass, ComputePass等，在 FrameGraph 中统一将 Task 称为 Pass。
+常用 Pass 类型
+类型 说明 RasterPass 包含大量 DC 的 Pass，通常为 View + DratItemList 组合 FullScreenPass 仅包含一个全屏三角形的 Pass，通常为屏幕空间处理 ComputePass 计算节点 CopyPass 资源拷贝节点 BlitPass Blit节点 Memory 复用 首先讨论以下 Memory 复用会遇到的问题
+资源配置 对于 FrameGraph 来说资源存在 Source 和 View 两种形式，Source 为数据源即 Image 或者 Buffer，View 作为 Pass 的 Attachment 存在，并与 Pass 共同作为 Graph 的节点。
+资源读 Attachment -&amp;gt; Pass 与 资源写 Pass -&amp;gt; Attachment 形成一条有向边，所有的 Pass 对资源的读写形成一个有向无环图。</description>
+    </item>
+    
   </channel>
 </rss>

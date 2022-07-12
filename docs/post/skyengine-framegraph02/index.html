@@ -4,19 +4,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SkyEngine 介绍 - Zach的博客</title>
+	<title>FrameGraph(二) - Zach的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="SkyEngine 介绍" />
-<meta property="og:description" content="SkyEngine 初衷 SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验证等目的。本系列也是主要介绍引擎开发过程中的一部分思路和想法。
-主要思路：
-逻辑层采用 ECS &#43; JobSystem 设计思路 渲染器采用 FrameGraph &#43; 组件化的整体思路。 关于Editorgit 引用 QT5 的 Native Editor，逐步开发中。
-关于后端 引擎采用单 vulkan 后端的设计，主要考虑以下几个原因：
-Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好的兼容性。 避免 RHI 设计时对某一个 API 妥协。 【懒】。 功能 framework 反射 序列号\反序列化 AssetManager JobSystem Script Lua JavaScript Launcher \ Application \ NativeWindow Windows MacOS engine Dynamic Modules World \ Level ECS render FrameGraph 基础渲染 driver vulkan Windows MacOS Tools Editor AssetBuilder FBX / GLTF / &hellip; Shader 三方库 assimp glm crc32c rapidjson taskflow stb-image imgui SFMT SPIRV_Cross SPIRV_Headers SPIRV_Tools glslang shaderc " />
+		<meta property="og:title" content="FrameGraph(二)" />
+<meta property="og:description" content="FrameGraph Setup FrameGraph 分为数据和Task两部分，数据部分包括资源(Image/Buffer)和配置，Task 包括GraphicPass, ComputePass等，在 FrameGraph 中统一将 Task 称为 Pass。
+常用 Pass 类型
+类型 说明 RasterPass 包含大量 DC 的 Pass，通常为 View &#43; DratItemList 组合 FullScreenPass 仅包含一个全屏三角形的 Pass，通常为屏幕空间处理 ComputePass 计算节点 CopyPass 资源拷贝节点 BlitPass Blit节点 Memory 复用 首先讨论以下 Memory 复用会遇到的问题
+资源配置 对于 FrameGraph 来说资源存在 Source 和 View 两种形式，Source 为数据源即 Image 或者 Buffer，View 作为 Pass 的 Attachment 存在，并与 Pass 共同作为 Graph 的节点。
+资源读 Attachment -&gt; Pass 与 资源写 Pass -&gt; Attachment 形成一条有向边，所有的 Pass 对资源的读写形成一个有向无环图。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.bluesky013.cn/post/skyengine/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-06-28T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-06-28T00:00:00+00:00" />
+<meta property="og:url" content="https://www.bluesky013.cn/post/skyengine-framegraph02/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-03T00:00:00+00:00" />
 
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 		<span class="menu__btn-title" tabindex="-1">Menu</span>
 	</button>
 	<ul class="menu__list">
-		<li class="menu__item menu__item--active">
+		<li class="menu__item">
 			<a class="menu__link" href="/post/skyengine/">
 				
 				<span class="menu__text">Blog</span>
@@ -74,105 +74,67 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">SkyEngine 介绍</h1>
+			<h1 class="post__title">FrameGraph(二)</h1>
 			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-28T00:00:00Z">June 28, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-03T00:00:00Z">July 03, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
 	</span>
 </div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<h1 id="skyengine">SkyEngine</h1>
-<h2 id="初衷">初衷</h2>
-<p>SkyEngine 是业余时间写的一款渲染引擎，初衷是为了学习、验证等目的。本系列也是主要介绍引擎开发过程中的一部分思路和想法。<br>
-主要思路：</p>
+			<h2 id="framegraph-setup">FrameGraph Setup</h2>
+<p>FrameGraph 分为数据和Task两部分，数据部分包括资源(Image/Buffer)和配置，Task 包括GraphicPass, ComputePass等，在 FrameGraph 中统一将 Task 称为 Pass。</p>
+<p>常用 Pass 类型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RasterPass</td>
+<td>包含大量 DC 的 Pass，通常为 View + DratItemList 组合</td>
+</tr>
+<tr>
+<td>FullScreenPass</td>
+<td>仅包含一个全屏三角形的 Pass，通常为屏幕空间处理</td>
+</tr>
+<tr>
+<td>ComputePass</td>
+<td>计算节点</td>
+</tr>
+<tr>
+<td>CopyPass</td>
+<td>资源拷贝节点</td>
+</tr>
+<tr>
+<td>BlitPass</td>
+<td>Blit节点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-复用">Memory 复用</h3>
+<p>首先讨论以下 Memory 复用会遇到的问题</p>
+<h3 id="资源配置">资源配置</h3>
+<p>对于 FrameGraph 来说资源存在 Source 和 View 两种形式，Source 为数据源即 Image 或者 Buffer，View 作为 Pass 的 Attachment 存在，并与 Pass 共同作为 Graph 的节点。</p>
+<p>资源读 Attachment -&gt; Pass 与 资源写 Pass -&gt; Attachment 形成一条有向边，所有的 Pass 对资源的读写形成一个有向无环图。<img src="../../resources/_gen/images/img.png" alt="img.png"></p>
+<p>存在几种情况，此处 Image 与 Buffer 同理</p>
+<ol>
+<li>对外部 Import Image 进行读写</li>
+<li>Pass 新创建 Image\Attachment 写</li>
+<li>对前一个 Pass 的 Attachment 读</li>
+<li>对前一个 Pass 的 Attachment 写，产生一个重命名的 Attachment，并形成 Read - Write 关系</li>
+</ol>
+<p>再考虑 Attachment，其作用包括：</p>
 <ul>
-<li>逻辑层采用 ECS + JobSystem 设计思路</li>
-<li>渲染器采用 FrameGraph + 组件化的整体思路。</li>
+<li>作为 GraphicsPass 的 Color\Resolve\Input\DepthStencil Attachment，用于创建 FrameBuffer。</li>
+<li>作为 Pass 的 Shader 输入 \ 输出，绑定到 DescriptorSet，Sampled Image\ Storage Image。</li>
+<li>辅助自动生成 Pipeline Barrier</li>
+<li>记录生命周期以实现内存复用</li>
 </ul>
-<h2 id="关于editorgit">关于Editorgit</h2>
-<p>引用 QT5 的 Native Editor，逐步开发中。</p>
-<h2 id="关于后端">关于后端</h2>
-<p>引擎采用单 vulkan 后端的设计，主要考虑以下几个原因：</p>
-<ul>
-<li>Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好的兼容性。</li>
-<li>避免 RHI 设计时对某一个 API 妥协。</li>
-<li>【懒】。</li>
-</ul>
-<h2 id="功能">功能</h2>
-<ul>
-<li><input disabled="" type="checkbox"> framework
-<ul>
-<li><input checked="" disabled="" type="checkbox"> 反射</li>
-<li><input disabled="" type="checkbox"> 序列号\反序列化</li>
-<li><input disabled="" type="checkbox"> AssetManager</li>
-<li><input checked="" disabled="" type="checkbox"> JobSystem</li>
-<li><input checked="" disabled="" type="checkbox"> Script
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Lua</li>
-<li><input disabled="" type="checkbox"> JavaScript</li>
-<li></li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> Launcher \ Application \ NativeWindow
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Windows</li>
-<li><input checked="" disabled="" type="checkbox"> MacOS</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> engine
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Dynamic Modules</li>
-<li><input disabled="" type="checkbox"> World \ Level</li>
-<li><input disabled="" type="checkbox"> ECS</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> render
-<ul>
-<li><input checked="" disabled="" type="checkbox"> FrameGraph</li>
-<li><input disabled="" type="checkbox"> 基础渲染</li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> driver
-<ul>
-<li><input checked="" disabled="" type="checkbox"> vulkan
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Windows</li>
-<li><input checked="" disabled="" type="checkbox"> MacOS</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> Tools
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Editor</li>
-<li><input disabled="" type="checkbox"> AssetBuilder
-<ul>
-<li><input disabled="" type="checkbox"> FBX / GLTF / &hellip;</li>
-<li><input disabled="" type="checkbox"> Shader</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="三方库">三方库</h2>
-<ul>
-<li>assimp</li>
-<li>glm</li>
-<li>crc32c</li>
-<li>rapidjson</li>
-<li>taskflow</li>
-<li>stb-image</li>
-<li>imgui</li>
-<li>SFMT</li>
-<li>SPIRV_Cross</li>
-<li>SPIRV_Headers</li>
-<li>SPIRV_Tools</li>
-<li>glslang</li>
-<li>shaderc</li>
-</ul>
+<p>此外为了解决 Barrier 和 Memory 的问题，Attachment 还需要记录额外的信息。</p>
 
 		</div>
 		<footer class="post__footer">
@@ -186,6 +148,9 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 		<li class="tags__item">
 			<a class="tags__link btn" href="/tags/skyengine/" rel="tag">SkyEngine</a>
 		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/framegraph/" rel="tag">FrameGraph</a>
+		</li>
 	</ul>
 </div>
 		</footer>
@@ -194,10 +159,16 @@ Vulkan 目前跨平台（包括 MacOS\IOS 平台受益于 MoltenVK）有较好�
 
 
 <nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/post/skyengine-framework-event/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Framework-Event</p>
+		</a>
+	</div>
 	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/post/skyengine-mesh/" rel="next">
+		<a class="pager__link" href="/post/skyengine-framegraph01/" rel="next">
 			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Render Mesh</p>
+			<p class="pager__title">FrameGraph(一)</p>
 		</a>
 	</div>
 </nav>

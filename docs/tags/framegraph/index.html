@@ -93,6 +93,27 @@
 对象池管理，复用 Image\Buffer 对象 优点：相对简单、兼容性好 缺点：格式、大小等限制 内存池管理，Image\Buffer 对象复用 Memory 优点：限制小、复用率高 缺点：依赖现代 API，相对复杂的内存管理 为实现内存池管理，依赖的如 Vulkan API 下 Buffer\Image 对象绑定 Memory 对象的操作，这边有一个假设前提，节约显存带来的收益大于额外的构建开销或者额外的构建开销可忽略不计。
 额外的构建开销包括 ImageView\FrameBuffer 的构建，受限于本人对驱动的了解，这部分可能要留作后续研究、试验确定，个人浅显的理解 View\FrameBuffer 仅为描述资源\容器，构建开销并不应该很大。
 	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/post/skyengine-framegraph02/" rel="bookmark">
+			FrameGraph(二)
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-03T00:00:00Z">July 03, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blog/" rel="category">Blog</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		FrameGraph Setup FrameGraph 分为数据和Task两部分，数据部分包括资源(Image/Buffer)和配置，Task 包括GraphicPass, ComputePass等，在 FrameGraph 中统一将 Task 称为 Pass。
+常用 Pass 类型
+类型 说明 RasterPass 包含大量 DC 的 Pass，通常为 View + DratItemList 组合 FullScreenPass 仅包含一个全屏三角形的 Pass，通常为屏幕空间处理 ComputePass 计算节点 CopyPass 资源拷贝节点 BlitPass Blit节点 Memory 复用 首先讨论以下 Memory 复用会遇到的问题
+资源配置 对于 FrameGraph 来说资源存在 Source 和 View 两种形式，Source 为数据源即 Image 或者 Buffer，View 作为 Pass 的 Attachment 存在，并与 Pass 共同作为 Graph 的节点。
+资源读 Attachment -&gt; Pass 与 资源写 Pass -&gt; Attachment 形成一条有向边，所有的 Pass 对资源的读写形成一个有向无环图。
+	</div>
 </article>
 </main>
 
@@ -113,10 +134,10 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framegraph01/">FrameGraph(一)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framegraph02/">FrameGraph(二)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-framework-event/">Framework-Event</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-gpu-driven-scene/">Gpu Driven Scene</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/skyengine-mesh/">Render Mesh</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/skyengine/">SkyEngine 介绍</a></li>
 		</ul>
 	</div>
 </div>
